@@ -1,0 +1,101 @@
+<html>
+    <head>
+	<title>Rock Paper Scissors</title>
+	<link rel="icon" type="images/x-icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Rock-paper-scissors.svg/375px-Rock-paper-scissors.svg.png">
+    </head>
+
+    <body style="background-color:cornflowerblue; text-align:center;">
+        <h1>Rock Paper Scissors!</h1>
+    </body>
+
+    <body>
+	<h2>Choose:</h2>
+	<button id="rockB"><img src="https://pngimg.com/uploads/stone/stone_PNG13545.png" alt="Rock" style="width:100px;height:100px;"></button>
+	<button id="paperB"><img src="https://pngimg.com/uploads/paper_sheet/paper_sheet_PNG7227.png" alt="Paper" style="width:100px;height:100px;"></button>
+	<button id="scissorsB"><img src="https://pngimg.com/uploads/scissors/scissors_PNG2.png" alt="Scissors" style="width:100px;height:100px;"></button>
+    </body>
+
+    <body>
+	<p id="resultText"></p>
+    </body>
+
+    <body>
+	<h3 id="statText"></h3>
+    </body>
+
+    <script>
+	const rockB = document.getElementById('rockB');
+	const paperB = document.getElementById('paperB');
+	const scissorsB = document.getElementById('scissorsB');
+	const resultText = document.getElementById('resultText');
+	const statText = document.getElementById('statText');
+
+	var option = 0; //1 = rock, 2 = paper, 3 = scissors
+	var compOption = 0;	
+	var playerWins = 0;
+	var compWins = 0;
+
+	rockB.addEventListener('click', function() {
+	    option = 1;
+	    decideWinner();
+	})
+
+	paperB.addEventListener('click', function() {
+            option = 2;
+	    decideWinner();
+        })
+
+	scissorsB.addEventListener('click', function() {
+            option = 3;
+	    decideWinner();
+        })
+
+	function decideWinner() {
+	    compOption = parseInt((Math.random()*3)+1);
+	    var winner = 0; //0 = player, 1 = cpu, 2 = draw
+	    
+	    if (option == compOption) {
+		winner = 2;
+	    } else if (option-1 == compOption || option == 1 && compOption == 3) {
+		winner = 0;
+		playerWins++;
+	    } else {
+		winner = 1;
+		compWins++;
+	    }
+	    
+	    updatePage(winner)
+	}
+
+	function updatePage(winner) {
+	    var resultString = "";
+	    if (option == 1) {
+		resultString += "Player chose rock. ";
+	    } else if (option == 2) {
+                resultString += "Player chose paper. ";
+            } else {
+                resultString += "Player chose scissors. ";
+            }
+
+	    if (compOption == 1) {
+                resultString += "Computer chose rock. ";
+            } else if (compOption == 2) {
+                resultString += "Computer chose paper. ";
+            } else {
+                resultString += "Computer chose scissors. ";
+            }
+
+	    if (winner == 2) {
+		resultString += "Draw!";
+	    } else if (winner == 0) {
+		resultString += "Player Won!";
+	    } else {
+		resultString += "Computer Won!";
+	    }
+
+	    resultText.textContent = resultString;
+
+	    statText.textContent = "Player Wins: " + playerWins + "	Computer Wins: " + compWins;
+	}
+    </script>
+</html>
